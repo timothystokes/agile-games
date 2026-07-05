@@ -1,23 +1,16 @@
-const STORY_TITLES = [
-  'As a user, I want to view my dashboard',
-  'As a user, I want to log in securely',
-  'As a user, I want to receive notifications',
-  'As a user, I want to manage my profile',
-  'As a user, I want to search for content',
-  'As a user, I want to export my data',
-  'As a user, I want to filter results',
-];
-
-const TASK_NAMES = [
-  'Design API',
-  'Build UI',
-  'Code Logic',
-  'Review & Merge',
-  'Deploy to Staging',
-  'Update Documentation',
-  'Integration Testing',
-  'Database Schema',
-  'Security Review',
+const STORIES = [
+  {
+    title: 'User Sign In / Sign Out',
+    tasks: ['Design Auth Flow', 'Build Sign In UI', 'Build Sign Out UI', 'Connect to Auth API', 'Security Review'],
+  },
+  {
+    title: 'Registration Form',
+    tasks: ['Design Form UI', 'Build Form Fields', 'Add Validation Logic', 'Connect to User API', 'Review & Merge'],
+  },
+  {
+    title: 'Dashboard',
+    tasks: ['Design Layout', 'Build Header & Nav', 'Build Data Widgets', 'Connect to Data API', 'Review & Merge'],
+  },
 ];
 
 const POINT_COMBOS = [
@@ -56,7 +49,7 @@ function distributeHours(count, total, minPerItem = 6) {
 function buildTasks(storyId, storyIndex, taskHours) {
   const taskCount = taskHours.length;
   const writeTestsSlot = Math.floor(Math.random() * taskCount);
-  const nonWriteTestsPool = shuffle([...TASK_NAMES]);
+  const taskPool = shuffle([...STORIES[storyIndex].tasks]);
   let poolIdx = 0;
 
   return taskHours.map((hours, i) => {
@@ -64,7 +57,7 @@ function buildTasks(storyId, storyIndex, taskHours) {
     return {
       id: `task-${storyIndex}-${i}`,
       storyId,
-      name: isWriteTests ? 'Write Tests' : nonWriteTestsPool[poolIdx++],
+      name: isWriteTests ? 'Write Tests' : taskPool[poolIdx++],
       estimatedHours: hours,
       progressHours: 0,
       status: 'todo',
@@ -79,7 +72,6 @@ function buildTasks(storyId, storyIndex, taskHours) {
 
 export function generateSprint() {
   const pointCombo = shuffle(pick(POINT_COMBOS));
-  const titlePool = shuffle([...STORY_TITLES]);
 
   // Decide task counts per story (2 or 3)
   const taskCounts = [0, 1, 2].map(() => (Math.random() < 0.5 ? 2 : 3));
@@ -102,7 +94,7 @@ export function generateSprint() {
     return {
       id,
       priority: i + 1,
-      title: titlePool[i],
+      title: STORIES[i].title,
       storyPoints: pointCombo[i],
       businessValue: rawValues[i],
       tasks: buildTasks(id, i, taskHours),
