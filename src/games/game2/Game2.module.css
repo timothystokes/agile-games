@@ -1,0 +1,60 @@
+.boardView {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.backLink {
+  font-family: var(--font-title);
+  font-size: 0.9rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius);
+  border: 2px solid #666;
+  background: color-mix(in srgb, #666 15%, var(--color-bg));
+  color: var(--color-text);
+  white-space: nowrap;
+  flex: 0 0 auto;
+  transition: background 150ms ease, transform 150ms ease;
+  text-decoration: none;
+}
+
+.backLink:hover,
+.backLink:focus-visible {
+  background: color-mix(in srgb, #666 28%, var(--color-bg));
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.backLink:focus-visible {
+  outline: 3px solid var(--color-text);
+  outline-offset: 3px;
+}
+
+.title {
+  font-family: var(--font-title);
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  text-align: center;
+  flex: 1;
+}
+
+.dayCounter {
+  font-family: var(--font-title);
+  font-size: 0.9rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius);
+  border: 2px solid var(--color-pink);
+  background: color-mix(in srgb, var(--color-pink) 15%, var(--color-bg));
+  color: var(--color-text);
+  white-space: nowrap;
+  flex: 0 0 auto;
+}

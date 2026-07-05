@@ -4,6 +4,18 @@ import { generateSprint } from './logic/generate';
 import IntroScreen from './components/IntroScreen';
 import CountdownOverlay from './components/CountdownOverlay';
 import SprintBoard from './components/SprintBoard';
+import styles from './Game2.module.css';
+
+function BoardHeader({ title, elapsedHours }) {
+  const day = Math.min(Math.ceil(elapsedHours / 8), 10);
+  return (
+    <header className={styles.header}>
+      <a href="#" className={styles.backLink} aria-label="Back to Home">← BACK</a>
+      <h1 className={styles.title}>{title}</h1>
+      <span className={styles.dayCounter}>Day {day} / 10</span>
+    </header>
+  );
+}
 
 export default function Game2() {
   const [phase, setPhase] = useState('intro');
@@ -21,10 +33,7 @@ export default function Game2() {
   useEffect(() => {
     if (phase !== 'countdown') return;
     const interval = setInterval(() => {
-      setCountdownValue((v) => {
-        if (v <= 1) return 0;
-        return v - 1;
-      });
+      setCountdownValue((v) => (v <= 1 ? 0 : v - 1));
     }, 1000);
     return () => clearInterval(interval);
   }, [phase]);
@@ -37,7 +46,7 @@ export default function Game2() {
     }
   }, [phase, countdownValue]);
 
-  // Game tick — advances elapsedHours each second
+  // Game tick
   useEffect(() => {
     if (phase !== 'active') return;
     const interval = setInterval(() => {
@@ -67,7 +76,8 @@ export default function Game2() {
   }
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className={styles.boardView}>
+      <BoardHeader title={game.title} elapsedHours={elapsedHours} />
       <SprintBoard
         stories={stories}
         elapsedHours={elapsedHours}
