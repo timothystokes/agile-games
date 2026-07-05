@@ -14,16 +14,28 @@
 }
 
 .backLink {
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  opacity: 0.75;
+  font-family: var(--font-title);
+  font-size: 0.9rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius);
+  border: 2px solid #666;
+  background: color-mix(in srgb, #666 15%, var(--color-bg));
+  color: var(--color-text);
   white-space: nowrap;
   flex: 0 0 auto;
-  transition: opacity 150ms ease;
+  transition: background 150ms ease, transform 150ms ease;
 }
 
-.backLink:hover {
-  opacity: 1;
+.backLink:hover,
+.backLink:focus-visible {
+  background: color-mix(in srgb, #666 28%, var(--color-bg));
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.backLink:focus-visible {
+  outline: 3px solid var(--color-text);
+  outline-offset: 3px;
 }
 
 .title {
