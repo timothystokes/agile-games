@@ -1,0 +1,52 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  border-width: 2px;
+  border-style: solid;
+  text-decoration: none;
+  color: var(--color-text);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  cursor: pointer;
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-3px);
+  outline: none;
+}
+
+.card:focus-visible {
+  outline: 3px solid var(--color-text);
+  outline-offset: 3px;
+}
+
+/* Accent colour variants — border + tinted background */
+:global(.accent-pink)   { border-color: var(--color-pink);   background: color-mix(in srgb, var(--color-pink)   12%, var(--color-bg)); }
+:global(.accent-yellow) { border-color: var(--color-yellow); background: color-mix(in srgb, var(--color-yellow) 12%, var(--color-bg)); }
+:global(.accent-blue)   { border-color: var(--color-blue);   background: color-mix(in srgb, var(--color-blue)   12%, var(--color-bg)); }
+:global(.accent-cyan)   { border-color: var(--color-cyan);   background: color-mix(in srgb, var(--color-cyan)   12%, var(--color-bg)); }
+:global(.accent-orange) { border-color: var(--color-orange); background: color-mix(in srgb, var(--color-orange) 12%, var(--color-bg)); }
+
+.principle {
+  font-family: var(--font-title);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.title {
+  font-family: var(--font-title);
+  font-size: 1.4rem;
+}
+
+.description {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin-top: 0.25rem;
+}

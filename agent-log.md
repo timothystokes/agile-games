@@ -44,6 +44,17 @@ Chronological log of interactions between @timothystokes and GitHub Copilot CLI 
 
 ---
 
+## 2026-07-05T15:20 AEST — Implementation: Slice 2 — Home Screen (TASKS-001 T006–T012)
+
+**Actions (T006–T012):**
+- Created `/public/content/game-{1-5}.md` — markdown files with YAML frontmatter (id, title, principle, accentColour, description)
+- Implemented `src/utils/content.js` — `parseGameFrontmatter` and `fetchGameContent` pure functions; 10 tests passing
+- Implemented `src/components/GameCard.jsx` + `GameCard.module.css` — accent-coloured card with tinted background, Righteous/Gelasio typography, hover/focus animation; 5 tests passing
+- Implemented `src/components/HomeScreen.jsx` + `HomeScreen.module.css` — fetches all 5 games, renders card grid, loading state; 3 tests passing
+- Total: 19 tests across 4 suites, lint clean
+
+---
+
 ## 2026-07-05T15:00 AEST — Specify Interview (Part 1)
 
 **Prompt:** Continue with the interview. Ask about non-functionals rather than assuming.
