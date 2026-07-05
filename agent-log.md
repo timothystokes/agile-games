@@ -29,6 +29,21 @@ Chronological log of interactions between @timothystokes and GitHub Copilot CLI 
 
 ---
 
+## 2026-07-05T15:20 AEST — Implementation: Slice 1 — Deployable Shell (TASKS-001 T001–T005)
+
+**Prompt:** Proceed with implementation. Push after each commit.
+
+**Actions (T001–T005):**
+- Scaffolded Vite + React project at repo root; installed all deps
+- Added Jest + React Testing Library + jest-dom; confirmed smoke test red then green
+- Added ESLint (flat config, v10 compatible); fixed `eslint-plugin-react` v7/ESLint v10 incompatibility by pinning React version in settings
+- Created `.github/workflows/ci.yml` — lint + test on all branches; build + deploy to GitHub Pages on `main` passing
+- Set `vite.config.js` base path to `/agile-games/`; confirmed `npm run build` succeeds
+- Created `src/styles/global.css` with full design system tokens (colours, fonts, radius, page transition animations)
+- Lint ✅ Tests ✅ Build ✅
+
+---
+
 ## 2026-07-05T15:00 AEST — Specify Interview (Part 1)
 
 **Prompt:** Continue with the interview. Ask about non-functionals rather than assuming.

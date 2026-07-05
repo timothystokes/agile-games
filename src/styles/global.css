@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Gelasio:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --color-bg: #0d0d0d;
+  --color-surface: #161616;
+  --color-text: #ffffff;
+  --color-pink: #ff2d78;
+  --color-yellow: #ffd600;
+  --color-blue: #2979ff;
+  --color-cyan: #00e5ff;
+  --color-orange: #ff6d00;
+  --color-green: #00e676;
+  --color-red: #ff1744;
+  --radius: 12px;
+  --font-title: 'Righteous', sans-serif;
+  --font-body: 'Gelasio', serif;
+  --transition-page: 280ms ease;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-title);
+  line-height: 1.2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Page transition animations */
+.page-enter {
+  animation: fadeSlideIn var(--transition-page) forwards;
+}
+
+.page-exit {
+  animation: fadeSlideOut var(--transition-page) forwards;
+  pointer-events: none;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
