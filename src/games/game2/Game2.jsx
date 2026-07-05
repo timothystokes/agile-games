@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { fetchGameContent } from '../../utils/content';
 import { generateSprint } from './logic/generate';
-import { advanceTick } from './logic/wip';
+import { advanceTick, countActiveTasks } from './logic/wip';
 import { checkDisruptions } from './logic/disruption';
 import { checkTddCondition, createBugTask } from './logic/tdd';
-import { calculateResults, selectTip } from './logic/results';
+import { calculateResults, selectTips } from './logic/results';
 import IntroScreen from './components/IntroScreen';
 import CountdownOverlay from './components/CountdownOverlay';
 import SprintBoard from './components/SprintBoard';
@@ -67,6 +67,10 @@ export default function Game2() {
       // 1. WIP progress
       let updated = advanceTick(storiesRef.current, next, 0.05);
 
+      // 5. Track peak WIP
+      const currentWip = countActiveTasks(updated);
+      if (currentWip > engine.maxWip) engine.maxWip = currentWip;
+
       // 2. Disruption events
       const { stories: afterDisruption, events } = checkDisruptions(updated, engine.disruptionEvents, next);
       updated = afterDisruption;
@@ -100,8 +104,8 @@ export default function Game2() {
       setStories(updated);
       setElapsedHours(next);
       if (next >= 80) {
-        const r = calculateResults(updated, next);
-        setResults({ ...r, tip: selectTip(r) });
+        const r = calculateResults(updated, next, engine.maxWip);
+        setResults({ ...r, tips: selectTips(r) });
         setPhase('results');
       }
     }, 50);
@@ -127,7 +131,7 @@ export default function Game2() {
     const sprint = generateSprint();
     storiesRef.current = sprint.stories;
     elapsedRef.current = 0;
-    engineRef.current = { disruptionEvents: sprint.disruptionEvents, scheduledBugs: [], tddTriggered: new Set() };
+    engineRef.current = { disruptionEvents: sprint.disruptionEvents, scheduledBugs: [], tddTriggered: new Set(), maxWip: 0 };
     setStories(sprint.stories);
     setElapsedHours(0);
     setResults(null);

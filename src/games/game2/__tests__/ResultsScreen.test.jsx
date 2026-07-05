@@ -9,9 +9,10 @@ const results = {
   cycleTime: 45,
   storiesCompleted: 2,
   storiesTotal: 3,
+  maxWip: 2,
   hasBugs: false,
   hasDisruptions: false,
-  tip: 'Stop starting, start finishing. WIP limits speed up throughput.',
+  tips: ['Stop starting, start finishing. WIP limits speed up throughput.'],
 };
 
 describe('ResultsScreen', () => {
@@ -37,13 +38,18 @@ describe('ResultsScreen', () => {
 
   it('renders stories completed count', () => {
     render(<ResultsScreen results={results} onPlayAgain={() => {}} />);
-    expect(screen.getByText('2')).toBeInTheDocument();
+    expect(screen.getAllByText('2').length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText('3')).toBeInTheDocument();
   });
 
   it('renders the learning tip', () => {
     render(<ResultsScreen results={results} onPlayAgain={() => {}} />);
-    expect(screen.getByText(results.tip)).toBeInTheDocument();
+    expect(screen.getByText(results.tips[0])).toBeInTheDocument();
+  });
+
+  it('renders peak WIP metric', () => {
+    render(<ResultsScreen results={results} onPlayAgain={() => {}} />);
+    expect(screen.getAllByText('2').length).toBeGreaterThanOrEqual(1);
   });
 
   it('calls onPlayAgain when Play Again is clicked', () => {

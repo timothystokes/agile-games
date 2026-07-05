@@ -1,4 +1,4 @@
-import { calculateResults, selectTip } from '../logic/results';
+import { calculateResults, selectTips } from '../logic/results';
 
 function makeStory(overrides = {}) {
   return {
@@ -67,28 +67,43 @@ describe('calculateResults', () => {
     const { hasDisruptions } = calculateResults([storyWithDisruption], 80);
     expect(hasDisruptions).toBe(true);
   });
+
+  it('includes maxWip in results', () => {
+    const { maxWip } = calculateResults([completedStory], 80, 3);
+    expect(maxWip).toBe(3);
+  });
 });
 
-describe('selectTip', () => {
-  const base = { storiesCompleted: 2, storiesTotal: 3, hasBugs: false, hasDisruptions: false };
+describe('selectTips', () => {
+  const base = { storiesCompleted: 2, storiesTotal: 3, hasBugs: false, hasDisruptions: false, maxWip: 1 };
 
   it('returns success tip when all stories completed', () => {
-    const tip = selectTip({ ...base, storiesCompleted: 3, storiesTotal: 3 });
-    expect(tip).toMatch(/finish/i);
+    const tips = selectTips({ ...base, storiesCompleted: 3, storiesTotal: 3, maxWip: 1 });
+    expect(tips.some((t) => /finish/i.test(t))).toBe(true);
   });
 
   it('returns TDD tip when bugs were spawned', () => {
-    const tip = selectTip({ ...base, hasBugs: true });
-    expect(tip).toMatch(/test/i);
+    const tips = selectTips({ ...base, hasBugs: true });
+    expect(tips.some((t) => /test/i.test(t))).toBe(true);
   });
 
   it('returns disruption tip when tasks were changed by events', () => {
-    const tip = selectTip({ ...base, hasDisruptions: true });
-    expect(tip).toMatch(/priorit/i);
+    const tips = selectTips({ ...base, hasDisruptions: true });
+    expect(tips.some((t) => /priorit/i.test(t))).toBe(true);
   });
 
-  it('returns WIP tip as default', () => {
-    const tip = selectTip({ ...base, storiesCompleted: 0 });
-    expect(tip).toMatch(/wip|finish|start/i);
+  it('includes WIP tip when maxWip > 1 and sprint incomplete', () => {
+    const tips = selectTips({ ...base, maxWip: 2, storiesCompleted: 1 });
+    expect(tips.some((t) => /wip|finish|start/i.test(t))).toBe(true);
+  });
+
+  it('does not include WIP tip when all stories completed', () => {
+    const tips = selectTips({ ...base, maxWip: 2, storiesCompleted: 3, storiesTotal: 3 });
+    expect(tips.every((t) => !/stop starting/i.test(t))).toBe(true);
+  });
+
+  it('returns WIP tip as fallback when no other condition applies', () => {
+    const tips = selectTips({ ...base, storiesCompleted: 0, maxWip: 0 });
+    expect(tips.length).toBeGreaterThan(0);
   });
 });

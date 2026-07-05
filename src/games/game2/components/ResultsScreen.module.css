@@ -59,6 +59,12 @@
   color: var(--color-pink);
 }
 
+.achievedWarn {
+  font-family: var(--font-title);
+  font-size: 1.7rem;
+  color: var(--color-red, #e05560);
+}
+
 .separator {
   font-family: var(--font-body);
   font-size: 1rem;
@@ -77,6 +83,14 @@
   letter-spacing: 0.05em;
   opacity: 0.35;
   text-transform: uppercase;
+}
+
+.tips {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 560px;
+  width: 100%;
 }
 
 .tipBox {

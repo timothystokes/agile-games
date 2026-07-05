@@ -5,7 +5,7 @@ function fmt(n) {
 }
 
 export default function ResultsScreen({ results, onPlayAgain }) {
-  const { valueDelivered, potentialValue, throughput, cycleTime, storiesCompleted, storiesTotal, tip } = results;
+  const { valueDelivered, potentialValue, throughput, cycleTime, storiesCompleted, storiesTotal, maxWip, tips } = results;
   const potentialThroughput = potentialValue / 10;
 
   return (
@@ -52,11 +52,25 @@ export default function ResultsScreen({ results, onPlayAgain }) {
           </div>
           <span className={styles.sublabel}>sprint</span>
         </div>
+
+        <div className={styles.metric}>
+          <span className={styles.label}>Peak WIP</span>
+          <div className={styles.pair}>
+            <span className={maxWip > 1 ? styles.achievedWarn : styles.achieved}>{maxWip}</span>
+            <span className={styles.separator}>/</span>
+            <span className={styles.potential}>1</span>
+          </div>
+          <span className={styles.sublabel}>ideal</span>
+        </div>
       </div>
 
-      <div className={styles.tipBox}>
-        <span className={styles.tipLabel}>LEARNING TIP</span>
-        <p className={styles.tip}>{tip}</p>
+      <div className={styles.tips}>
+        {tips.map((tip, i) => (
+          <div key={i} className={styles.tipBox}>
+            <span className={styles.tipLabel}>LEARNING TIP</span>
+            <p className={styles.tip}>{tip}</p>
+          </div>
+        ))}
       </div>
 
       <div className={styles.actions}>
