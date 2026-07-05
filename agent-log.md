@@ -26,3 +26,24 @@ Chronological log of interactions between @timothystokes and GitHub Copilot CLI 
 - Stored workflow rule as a repository memory.
 - Committed initial scaffold (README.md, .github/copilot-instructions.md, agent-log.md, spec-kit init).
 - Awaiting user response to begin constitution + specify interview.
+
+---
+
+## 2026-07-05T15:00 AEST — Specify Interview (Part 1)
+
+**Prompt:** Continue with the interview. Ask about non-functionals rather than assuming.
+
+**Q1 — The Problem**
+> What is "Agile Games"?
+
+**Answer:** A collection of games under the title "Agile Games". Each game teaches a core agile principle by showing the impact of various delivery approaches. Labs: Game 1: Alignment, Game 2: Persistence, Game 3: Teamwork, Game 4: Improvement, Game 5: Delivery.
+
+**Q2 — Users & Context**
+> Who plays these games and who facilitates?
+
+**Answer:** Agile team members — anyone involved in software or digital product delivery. The player is typically an individual. No distinct facilitator role mentioned at this stage.
+
+**Q3 — Game Mechanics**
+> How does a game work at a high level?
+
+**Answer:** Format varies per Lab. Once the high-level solution is established, we will dive into one specific Lab in detail.
