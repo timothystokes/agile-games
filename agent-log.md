@@ -209,3 +209,34 @@ Chronological log of interactions between @timothystokes and GitHub Copilot CLI 
 - Created `.specify/memory/spec-002.md` (SPEC-002) — full specification for Game 2: Persistence.
 
 **Deployment fix:** GitHub Pages 404 error resolved by setting Pages source to "GitHub Actions" in repo settings (no code change required).
+
+---
+
+## 2026-07-05T16:38 AEST — Deployment & README Fixes
+
+**Prompt:** Commit to trigger deployment again. Add hosted page link to top of README.
+
+**Actions:**
+- Added live site link to top of `README.md`: https://timothystokes.github.io/agile-games/
+- Investigated and resolved GitHub Pages path: `base: '/agile-games/'` is correct for a GitHub project repo (cannot serve from root `/` without a custom domain). Reverted a brief `/` change after confirming with user.
+- Committed and pushed: `ef2eb84`.
+
+---
+
+## 2026-07-05T16:40 AEST — PLAN-002 & TASKS-002: Game 2 Persistence
+
+**Prompt:** Continue with requirement 2 (PLAN-002 and TASKS-002 for Game 2: Persistence).
+
+**Actions:**
+- Created `.specify/memory/plan-002.md` (PLAN-002) — implementation plan for Game 2 covering:
+  - Component hierarchy: Game2 → IntroScreen, CountdownOverlay, SprintBoard (Timeline + StoryLane + TaskCard), ResultsScreen
+  - Pure function modules: generate, wip, disruption, tdd, results
+  - File layout under `src/games/game2/`
+  - 5 vertical slices (A–E): intro → countdown+skeleton → task interaction+WIP → events → results
+  - Key design decisions: useReducer in Game2, single setInterval tick, progress as accumulated hours, CSS animations only
+- Created `.specify/memory/tasks-002.md` (TASKS-002) — 15 tasks across 5 slices (T001–T015):
+  - Slice A (T001–T002): Route wiring + intro screen
+  - Slice B (T003–T005): Countdown overlay + board skeleton + game tick timer
+  - Slice C (T006–T009): Story generation, WIP logic, task cards, WIP wired to tick
+  - Slice D (T010–T011): Disruption events + TDD/bug mechanic
+  - Slice E (T012–T015): Results calculations, results screen, Play Again, commit/push
