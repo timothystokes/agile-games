@@ -5,7 +5,6 @@ import GameCard from '../components/GameCard';
 const game = {
   id: 'game-1',
   title: 'Game 1: Alignment',
-  principle: 'Alignment',
   accentColour: 'pink',
   description: 'Shared understanding transforms a team.',
 };
@@ -14,11 +13,6 @@ describe('GameCard', () => {
   it('renders the game title', () => {
     render(<GameCard game={game} />);
     expect(screen.getByText('Game 1: Alignment')).toBeInTheDocument();
-  });
-
-  it('renders the principle name', () => {
-    render(<GameCard game={game} />);
-    expect(screen.getByText('Alignment')).toBeInTheDocument();
   });
 
   it('renders the description', () => {

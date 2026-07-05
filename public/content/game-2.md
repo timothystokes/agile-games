@@ -1,7 +1,6 @@
 ---
 id: game-2
 title: "Game 2: Persistence"
-principle: "Persistance"
 accentColour: "pink"
 description: "Demonstrates the importance of persisting with work in hand compared to starting on new work. This relates to the Kanban principle of 'Stop Starting and Start Finishing'."
 ---
