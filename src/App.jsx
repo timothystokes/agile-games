@@ -1,7 +1,44 @@
+import { useState, useEffect } from 'react';
+import { parseHash } from './utils/router';
+import { fetchGameContent } from './utils/content';
+import HomeScreen from './components/HomeScreen';
+import GamePlaceholder from './components/GamePlaceholder';
+import styles from './App.module.css';
+
 export default function App() {
-  return (
-    <main>
-      <h1>Agile Games</h1>
-    </main>
-  );
+  const [gameId, setGameId] = useState(() => parseHash(window.location.hash));
+  const [game, setGame] = useState(null);
+
+  useEffect(() => {
+    const onHashChange = () => setGameId(parseHash(window.location.hash));
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  useEffect(() => {
+    if (!gameId) return;
+    let cancelled = false;
+    fetchGameContent(gameId).then((data) => {
+      if (!cancelled) setGame(data);
+    });
+    return () => { cancelled = true; };
+  }, [gameId]);
+
+  if (!gameId) {
+    return (
+      <div className={`${styles.page} ${styles.enter}`}>
+        <HomeScreen />
+      </div>
+    );
+  }
+
+  if (game && game.id === gameId) {
+    return (
+      <div className={`${styles.page} ${styles.enter}`}>
+        <GamePlaceholder game={game} />
+      </div>
+    );
+  }
+
+  return null;
 }

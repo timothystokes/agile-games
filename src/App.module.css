@@ -1,0 +1,12 @@
+.page {
+  min-height: 100vh;
+}
+
+.enter {
+  animation: fadeSlideIn var(--transition-page) forwards;
+}
+
+.exit {
+  animation: fadeSlideOut var(--transition-page) forwards;
+  pointer-events: none;
+}

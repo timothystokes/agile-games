@@ -55,6 +55,20 @@ Chronological log of interactions between @timothystokes and GitHub Copilot CLI 
 
 ---
 
+## 2026-07-05T15:20 AEST — Implementation: Slices 3 & 4 — Hash Routing & Animations (TASKS-001 T013–T021)
+
+**Actions (T013–T021):**
+- Implemented `src/utils/router.js` — `isValidGameId` + `parseHash` pure functions; 14 tests passing
+- Implemented `src/components/GamePlaceholder.jsx` + `GamePlaceholder.module.css` — styled placeholder with back link; 4 tests passing
+- Implemented full hash router in `src/App.jsx` — `hashchange` listener, gameId → game fetch, stale content guard (`game.id === gameId`); 5 routing tests passing
+- Created `src/App.module.css` — page enter/exit CSS animation classes
+- Fixed `window.location.hash` testing approach (jsdom native setter, not `delete window.location`)
+- Fixed `react-hooks/set-state-in-effect` lint error — no synchronous setState in effect body
+- CSS page transition animations in `global.css` + `App.module.css` (Slice 4)
+- Total: 41 tests across 6 suites, lint clean, build succeeds
+
+---
+
 ## 2026-07-05T15:00 AEST — Specify Interview (Part 1)
 
 **Prompt:** Continue with the interview. Ask about non-functionals rather than assuming.
