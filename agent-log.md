@@ -174,3 +174,38 @@ Chronological log of interactions between @timothystokes and GitHub Copilot CLI 
   - Slice 2 (T006–T012): Home screen with five game cards loaded from `/content/*.md` markdown files, full design system
   - Slice 3 (T013–T019): Hash routing to game placeholders, keyboard nav, back navigation
   - Slice 4 (T020–T021): Animated page transitions
+
+---
+
+## 2026-07-05T16:05 AEST — UX Fixes: Layout & Game Screen Header
+
+**Prompt:** The back should not take a whole row. Centre the title at the top of the game screen.
+
+**Actions:**
+- Refactored `GamePlaceholder.jsx` to use a flex header row: back link left, title centred, invisible spacer right for true centering.
+- Removed `max-width` from `HomeScreen.module.css` and `GamePlaceholder.module.css` — both screens now use full browser width with padding only.
+- Removed `principle` field from all 5 content files, `GameCard.jsx`, `GamePlaceholder.jsx`, and their CSS modules.
+- Updated all affected tests; all 39 tests passing.
+- Committed and pushed: `9599878`.
+
+---
+
+## 2026-07-05T16:36 AEST — SPEC-002: Game 2 Persistence Requirements Interview
+
+**Prompt:** Go through spec-kit workflow from the beginning for Game 2: Persistence. Use the content file description. Interview to gather detailed requirements. Do not assume non-functionals.
+
+**Actions:**
+- Conducted structured requirements interview (12 questions) covering:
+  - Board layout: Kanban with To Do / In Progress / Blocked / Done columns; User Story swim lanes spanning all columns; Task cards per column.
+  - Player interaction: Start / Pause / Resume buttons on task cards (no drag-and-drop).
+  - Simulation: 1 real second = 1 simulated hour; 80-hour sprint runs continuously; timeline shows 10 working days with animated marker.
+  - WIP mechanic: N=1 task → 10% faster; N>1 tasks → N×5% slower per task, applied to all active tasks.
+  - Disruption events: Story 2 task changes during Story 1's ideal window; Story 3 task changes during Stories 1+2 ideal window — resets progress to To Do with CHANGED badge if already started.
+  - TDD mechanic: "Write Tests" task in each story; completing it after other tasks spawns a Bug task (6–12h) at a random remaining time.
+  - Story generation: randomised per game; story points in Fibonacci summing to 13; total hours = 80; min task = 6h.
+  - Business value: $1,000–$3,500 in $100 increments; highest to P1, middle to P2, lowest to P3.
+  - Results screen: value delivered, potential value, stories completed/incomplete, throughput ($/day), cycle time, context-sensitive learning tip, Play Again + Back to Home.
+  - Intro screen: game-2.md body content + Start button; countdown overlay (GET READY → 5,4,3,2,1,GO!).
+- Created `.specify/memory/spec-002.md` (SPEC-002) — full specification for Game 2: Persistence.
+
+**Deployment fix:** GitHub Pages 404 error resolved by setting Pages source to "GitHub Actions" in repo settings (no code change required).
