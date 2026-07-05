@@ -1,15 +1,15 @@
 const STORIES = [
   {
     title: 'User Sign In / Sign Out',
-    tasks: ['Design Auth Flow', 'Build Sign In UI', 'Build Sign Out UI', 'Connect to Auth API', 'Security Review'],
+    tasks: ['Design Auth Flow', 'Build Sign In UI', 'Build Sign Out UI', 'Connect to Auth API', 'Register Federated Providers'],
   },
   {
     title: 'Registration Form',
-    tasks: ['Design Form UI', 'Build Form Fields', 'Add Validation Logic', 'Connect to User API', 'Deploy to Production'],
+    tasks: ['Design Form UI', 'Build Form Fields', 'Add Validation Logic to UI', 'Connect to User API', 'Add Validation Logic to API'],
   },
   {
     title: 'Dashboard',
-    tasks: ['Design Layout', 'Build Header & Nav', 'Build Data Widgets', 'Connect to Data API', 'Ship to Production'],
+    tasks: ['Design Layout', 'Build Header & Nav', 'Build Data Widgets', 'Connect to Data API', 'Report Download Function'],
   },
 ];
 
