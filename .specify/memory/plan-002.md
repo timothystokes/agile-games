@@ -118,7 +118,7 @@ When the sprint timer hits 80 hours the results screen appears with all metrics 
 
 3. **Progress as accumulated hours** — each task stores `progressHours` (0 → `estimatedHours`). The WIP multiplier determines how many hours are added per tick. This makes pausing, resuming, and the WIP effect simple arithmetic.
 
-4. **Animations via CSS classes** — task card column transitions use `data-status` attribute on the card + CSS transitions. Countdown uses a CSS keyframe animation. Results screen fades in. No JS animation library.
+4. **Animations via CSS classes** — `CountdownOverlay` is `position: fixed`, full-viewport, semi-transparent dark background. The board renders beneath it during countdown so the player can study their stories. The overlay fades out on GO!. Task card column transitions use `data-status` attribute on the card + CSS transitions. Results screen fades in. No JS animation library.
 
 5. **Story generation seeded fresh each Play Again** — `generateSprint()` is called with `Math.random()` on mount and on Play Again. No seed persistence.
 

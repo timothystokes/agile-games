@@ -36,20 +36,22 @@
 
 ---
 
-## Slice B — Countdown + Board Skeleton
+## Slice B — Countdown + Board Skeleton (start → board visible + countdown overlay → board interactive on GO!)
 
-### T003 — Countdown overlay counts 5→1→GO then transitions to active phase (TDD)
+Pressing Start renders the Sprint Board and countdown overlay simultaneously. The player sees generated stories and plans before GO! fires. On GO! the overlay fades and the board becomes interactive. Proves timer loop, phase state machine, and layout.
+
+### T003 — Countdown overlay renders above the board (TDD)
 **Tests first:**
 - `CountdownOverlay.test.jsx`: renders GET READY text
 - `CountdownOverlay.test.jsx`: displays current countdown value (prop-driven)
-- `CountdownOverlay.test.jsx`: calls `onComplete` when countdown reaches 0
+- `CountdownOverlay.test.jsx`: displays GO! when value is 0
 
 **Implement:**
-- `src/games/game2/components/CountdownOverlay.jsx` — receives `value` prop (5→0); calls `onComplete` at 0; displays GET READY + large number
-- `CountdownOverlay.module.css` — full-screen overlay (dark semi-transparent), Righteous font, large centred countdown, CSS fade-in/out animation
-- `Game2.jsx`: `useEffect` drives countdown from 5→0 at 1s intervals; transitions `phase` from `countdown` → `active`
+- `src/games/game2/components/CountdownOverlay.jsx` — receives `value` prop (5→0); renders GET READY + large number or GO! at 0; purely presentational
+- `CountdownOverlay.module.css` — `position: fixed`, full-viewport, semi-transparent dark background (`rgba(0,0,0,0.75)`), Righteous font, large centred countdown, CSS fade-out animation when removed
+- `Game2.jsx`: during `countdown` phase renders SprintBoard underneath AND CountdownOverlay on top; countdown logic stays in Game2; on GO! removes overlay and activates board
 
-**CSS:** Overlay covers full viewport; countdown number animates scale pulse each digit
+**CSS:** Overlay is `position: fixed; inset: 0; z-index: 100`; countdown number animates scale pulse each digit; board visible but pointer-events disabled during countdown
 
 ---
 

@@ -26,9 +26,10 @@ The game reinforces three linked agile principles:
 - Player reads the rules then presses **Start**.
 
 ### Screen 2 — Get Ready Countdown
-- Overlay covers the screen with text `GET READY` above a large animated countdown: **5 → 4 → 3 → 2 → 1 → GO!**
+- The Sprint Board renders immediately behind the countdown so the player can study the stories and plan their approach before play begins.
+- A semi-transparent dark overlay sits above the board with `GET READY` above a large animated countdown: **5 → 4 → 3 → 2 → 1 → GO!**
 - Countdown uses 1 real second per digit.
-- On **GO!** the overlay fades out and the Sprint Board becomes active and the simulation timer starts.
+- On **GO!** the overlay fades out, the board becomes interactive, and the simulation timer starts.
 
 ### Screen 3 — Sprint Board (active game)
 
@@ -99,13 +100,13 @@ In summary: N=1 → ×0.9 effective duration; N>1 → ×(1 + 0.05×N) effective 
 Two disruption events fire during the sprint, each targeting one task in Stories 2 and 3.
 
 **Story 2 disruption:**
-- Fires at a random moment within the simulated time window `[0, totalHoursStory1]` — the window when an ideal player would be completing Story 1.
+- Fires at a random moment within the simulated time window `[0, sum of Story 1 task hours]` — the window when an ideal player would be completing Story 1's tasks.
 - Targeted task: one randomly chosen non-"Write Tests" task in Story 2.
 - If the task is in **To Do** at the time of the event → no effect (player has not started it; the change is absorbed).
 - If the task is in **In Progress**, **Blocked**, or **Done** → it is moved back to **To Do**, its progress resets to 0, and a `CHANGED` badge is shown on the card. If the story was green (all done), it reverts to its accent colour.
 
 **Story 3 disruption:**
-- Fires at a random moment within `[0, totalHoursStory1 + totalHoursStory2]`.
+- Fires at a random moment within `[0, sum of Story 1 task hours + sum of Story 2 task hours]`.
 - Same mechanic as above but targeting one randomly chosen non-"Write Tests" task in Story 3.
 
 ### TDD / Write Tests Mechanic
@@ -149,7 +150,7 @@ A context-sensitive tip is shown based on the player's outcome:
 ## Functional Requirements
 
 - **FR-G2-001**: The intro screen MUST display the body content from `public/content/game-2.md` and a Start button.
-- **FR-G2-002**: Pressing Start MUST trigger a GET READY overlay with a 5-second countdown before the sprint begins.
+- **FR-G2-002**: Pressing Start MUST render the Sprint Board immediately, then display a semi-transparent countdown overlay (GET READY → 5 → 4 → 3 → 2 → 1 → GO!) so the player can study the board before play begins. The board becomes interactive only after GO!.
 - **FR-G2-003**: The Kanban board MUST have four columns: To Do, In Progress, Blocked, Done.
 - **FR-G2-004**: User Stories MUST render as swim lanes spanning all columns; Task cards MUST be positioned in the column matching their current state.
 - **FR-G2-005**: Each game MUST generate 3 randomised User Stories with story points summing to 13 (Fibonacci), total task hours summing to 80, and minimum task duration of 6 hours.

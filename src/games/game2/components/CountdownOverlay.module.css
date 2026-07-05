@@ -1,0 +1,49 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.78);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  pointer-events: none;
+  animation: fadeIn 300ms ease forwards;
+}
+
+.overlay.fading {
+  animation: fadeOut 400ms ease forwards;
+}
+
+.label {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  letter-spacing: 0.15em;
+  color: var(--color-text);
+  opacity: 0.7;
+}
+
+.count {
+  font-family: var(--font-title);
+  font-size: clamp(6rem, 20vw, 12rem);
+  color: var(--color-pink);
+  line-height: 1;
+  animation: pulse 900ms ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes pulse {
+  0%   { transform: scale(1.3); opacity: 0.6; }
+  60%  { transform: scale(1);   opacity: 1; }
+  100% { transform: scale(1);   opacity: 1; }
+}
