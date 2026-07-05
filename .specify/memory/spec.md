@@ -108,6 +108,8 @@ Cards and game elements move with smooth animations so the experience feels poli
 - **FR-010**: The application MUST meet WCAG Level A accessibility compliance
 - **FR-011**: Keyboard navigation MUST be supported throughout
 - **FR-012**: Colour MUST NOT be the sole indicator of any state or outcome
+- **FR-013**: Game card content on the home screen (title, agile principle, description) MUST be loaded from markdown files in a `/content` folder (e.g. `content/game-1.md`)
+- **FR-014**: Markdown content files MUST be the single source of truth for game metadata — no hardcoded strings in components
 
 ### Key Entities
 

@@ -106,3 +106,18 @@ Chronological log of interactions between @timothystokes and GitHub Copilot CLI 
 **Actions:**
 - Wrote `.specify/memory/constitution.md` (v1.0.0) covering 6 principles: Test-First, Pure Functions, Spec-Driven, Simplicity, CI/Quality Gates, Accessibility; plus Technology Constraints, Design System, Workflow, and Governance sections.
 - Created `.specify/memory/spec.md` (SPEC-001) — high-level platform spec covering all 5 Labs, 4 user stories, FR-001–FR-012, NF-001–NF-010, SC-001–SC-005.
+
+---
+
+## 2026-07-05T15:17 AEST — Platform Plan & Tasks
+
+**Prompt:** Before creating a Lab, build the main platform: home screen with hash navigation to each Game. Game card content pulled from markdown files in `/content`. Implement in vertical slices (end-to-end threads, not horizontal layers). CSS applied within each slice. Tasks split by functionality, not technical concern.
+
+**Actions:**
+- Updated SPEC-001 to add FR-013 (content from markdown files) and FR-014 (markdown as single source of truth).
+- Created `.specify/memory/plan.md` (PLAN-001) — platform scaffold plan: Vite+React, hash routing, `marked` for markdown parsing, design system tokens, project structure, slice strategy.
+- Created `.specify/memory/tasks.md` (TASKS-001) — 21 tasks across 4 vertical slices:
+  - Slice 1 (T001–T005): Deployable shell — Vite+React scaffold + CI/CD pipeline to GitHub Pages
+  - Slice 2 (T006–T012): Home screen with five game cards loaded from `/content/*.md` markdown files, full design system
+  - Slice 3 (T013–T019): Hash routing to game placeholders, keyboard nav, back navigation
+  - Slice 4 (T020–T021): Animated page transitions
