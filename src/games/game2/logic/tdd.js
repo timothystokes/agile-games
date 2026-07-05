@@ -1,8 +1,13 @@
 export function checkTddCondition(story) {
   const writeTests = story.tasks.find((t) => t.isWriteTests);
-  if (!writeTests || writeTests.completedAt === null) return false;
+  if (!writeTests) return false;
+  // Bug triggers if any non-bug task completes while Write Tests was not already done first
   return story.tasks.some(
-    (t) => !t.isWriteTests && t.completedAt !== null && t.completedAt < writeTests.completedAt
+    (t) =>
+      !t.isWriteTests &&
+      !t.isBug &&
+      t.completedAt !== null &&
+      (writeTests.completedAt === null || t.completedAt < writeTests.completedAt)
   );
 }
 

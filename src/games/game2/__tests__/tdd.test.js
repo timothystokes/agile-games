@@ -11,12 +11,12 @@ function makeTask(overrides = {}) {
 }
 
 describe('checkTddCondition', () => {
-  it('returns false when Write Tests task is not yet done', () => {
+  it('returns false when no task has completed yet', () => {
     const story = {
       id: 'story-0',
       tasks: [
         makeTask({ id: 't-0', isWriteTests: true, status: 'todo', completedAt: null }),
-        makeTask({ id: 't-1', status: 'done', completedAt: 5 }),
+        makeTask({ id: 't-1', status: 'todo', completedAt: null }),
       ],
     };
     expect(checkTddCondition(story)).toBe(false);
@@ -33,15 +33,15 @@ describe('checkTddCondition', () => {
     expect(checkTddCondition(story)).toBe(false);
   });
 
-  it('returns false when Write Tests is done and no other tasks are done yet', () => {
+  it('returns true when a non-writeTests task completes before Write Tests is done', () => {
     const story = {
       id: 'story-0',
       tasks: [
-        makeTask({ id: 't-0', isWriteTests: true, status: 'done', completedAt: 10 }),
-        makeTask({ id: 't-1', status: 'inProgress', completedAt: null }),
+        makeTask({ id: 't-0', isWriteTests: true, status: 'inProgress', completedAt: null }),
+        makeTask({ id: 't-1', status: 'done', completedAt: 10 }),
       ],
     };
-    expect(checkTddCondition(story)).toBe(false);
+    expect(checkTddCondition(story)).toBe(true);
   });
 
   it('returns true when any other task completed before Write Tests', () => {
@@ -53,6 +53,17 @@ describe('checkTddCondition', () => {
       ],
     };
     expect(checkTddCondition(story)).toBe(true);
+  });
+
+  it('does not count bug tasks when checking condition', () => {
+    const story = {
+      id: 'story-0',
+      tasks: [
+        makeTask({ id: 't-0', isWriteTests: true, status: 'inProgress', completedAt: null }),
+        makeTask({ id: 't-bug', isBug: true, status: 'done', completedAt: 8 }),
+      ],
+    };
+    expect(checkTddCondition(story)).toBe(false);
   });
 });
 

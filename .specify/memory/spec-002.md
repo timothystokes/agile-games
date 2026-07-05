@@ -111,12 +111,13 @@ Two disruption events fire during the sprint, each targeting one task in Stories
 
 ### TDD / Write Tests Mechanic
 Within each User Story:
-- If **Write Tests** completes **after** any other task in the same story has already completed:
-  - A new **Bug** task is created for that story at a random time before the sprint ends.
-  - Bug task appears in **To Do** for that story.
+- A **Bug** task is spawned if any non-bug task in the story completes **before** Write Tests has been completed for that story.
+  - This covers: completing other tasks while Write Tests is still in progress or todo, OR completing Write Tests after other tasks are already done.
+  - Maximum **one bug per story** — once triggered for a story, no further bugs are spawned for it.
+  - Bug task appears in **To Do** for that story at a random remaining time before the sprint ends.
   - Bug task duration: randomly between **6–12 hours**.
   - Bug task is labelled `🐛 Bug Fix` and is visually distinct (red tint on card).
-- If **Write Tests** completes **before** any other task in the same story completes → no bug is spawned.
+- If **Write Tests** is the first task to complete in a story → no bug is spawned for that story.
 
 ---
 
