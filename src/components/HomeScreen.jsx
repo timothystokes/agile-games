@@ -10,7 +10,7 @@ export default function HomeScreen() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all(GAME_IDS.map(fetchGameContent)).then((results) => {
+    Promise.all(GAME_IDS.map((id) => fetchGameContent(id))).then((results) => {
       setGames(results.filter(Boolean));
       setLoading(false);
     });

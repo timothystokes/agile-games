@@ -69,6 +69,19 @@ Chronological log of interactions between @timothystokes and GitHub Copilot CLI 
 
 ---
 
+## 2026-07-05T15:57 AEST — Bug Fix: game cards not visible (TASKS-001)
+
+**Prompt:** Game cards not visible on page — ul element is empty. Network tab showed URL `/agile-games/0content/game-1.md` (0 in path).
+
+**Root cause:** `Array.map(fetchGameContent)` passes `(element, index, array)` — the index `0` was overriding the `baseUrl` default parameter in `fetchGameContent`.
+
+**Fix:** `HomeScreen.jsx` — wrap in arrow function: `GAME_IDS.map((id) => fetchGameContent(id))`
+
+**Also fixed:**
+- Added `.npmrc` with `legacy-peer-deps=true` to fix `npm ci` failure in GitHub Actions (eslint-plugin-react peer dep conflict with ESLint v10).
+
+---
+
 ## 2026-07-05T15:00 AEST — Specify Interview (Part 1)
 
 **Prompt:** Continue with the interview. Ask about non-functionals rather than assuming.
