@@ -1,4 +1,4 @@
-const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---/;
+const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)/;
 
 export function parseGameFrontmatter(markdown) {
   const match = FRONTMATTER_RE.exec(markdown);
@@ -12,6 +12,7 @@ export function parseGameFrontmatter(markdown) {
     const value = line.slice(colon + 1).trim().replace(/^"(.*)"$/, '$1');
     fields[key] = value;
   }
+  fields.body = match[2].trim();
   return fields;
 }
 

@@ -3,6 +3,7 @@ import { parseHash } from './utils/router';
 import { fetchGameContent } from './utils/content';
 import HomeScreen from './components/HomeScreen';
 import GamePlaceholder from './components/GamePlaceholder';
+import Game2 from './games/game2/Game2';
 import styles from './App.module.css';
 
 export default function App() {
@@ -16,7 +17,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (!gameId) return;
+    if (!gameId || gameId === 'game-2') return;
     let cancelled = false;
     fetchGameContent(gameId).then((data) => {
       if (!cancelled) setGame(data);
@@ -28,6 +29,14 @@ export default function App() {
     return (
       <div className={`${styles.page} ${styles.enter}`}>
         <HomeScreen />
+      </div>
+    );
+  }
+
+  if (gameId === 'game-2') {
+    return (
+      <div className={`${styles.page} ${styles.enter}`}>
+        <Game2 />
       </div>
     );
   }

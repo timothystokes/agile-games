@@ -34,6 +34,15 @@ describe('parseGameFrontmatter', () => {
     );
   });
 
+  it('extracts body text after frontmatter', () => {
+    expect(parseGameFrontmatter(SAMPLE_MD).body).toBe('Optional body content.');
+  });
+
+  it('returns empty string body when no content follows frontmatter', () => {
+    const noBody = `---\nid: game-1\n---\n`;
+    expect(parseGameFrontmatter(noBody).body).toBe('');
+  });
+
   it('returns null for malformed markdown with no frontmatter', () => {
     expect(parseGameFrontmatter('No frontmatter here')).toBeNull();
   });

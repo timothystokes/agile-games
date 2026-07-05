@@ -1,0 +1,75 @@
+.intro {
+  min-height: 100vh;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.backLink {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  opacity: 0.75;
+  white-space: nowrap;
+  flex: 0 0 auto;
+  transition: opacity 150ms ease;
+}
+
+.backLink:hover {
+  opacity: 1;
+}
+
+.title {
+  font-family: var(--font-title);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  text-align: center;
+  flex: 1;
+}
+
+.startBtn {
+  font-family: var(--font-title);
+  font-size: 1rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--radius);
+  border: 2px solid var(--color-pink);
+  background: color-mix(in srgb, var(--color-pink) 20%, var(--color-bg));
+  color: var(--color-text);
+  cursor: pointer;
+  white-space: nowrap;
+  flex: 0 0 auto;
+  transition: background 150ms ease, transform 150ms ease;
+}
+
+.startBtn:hover,
+.startBtn:focus-visible {
+  background: color-mix(in srgb, var(--color-pink) 35%, var(--color-bg));
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.startBtn:focus-visible {
+  outline: 3px solid var(--color-text);
+  outline-offset: 3px;
+}
+
+.body {
+  max-width: 72ch;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.body p {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  opacity: 0.9;
+}

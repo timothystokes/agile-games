@@ -3,11 +3,11 @@ import '@testing-library/jest-dom';
 import App from '../App';
 
 const MOCK_GAMES = [
-  { id: 'game-1', title: 'Game 1: Alignment', principle: 'Alignment', accentColour: 'pink', description: 'Desc 1' },
-  { id: 'game-2', title: 'Game 2: Persistence', principle: 'Persistence', accentColour: 'yellow', description: 'Desc 2' },
-  { id: 'game-3', title: 'Game 3: Teamwork', principle: 'Teamwork', accentColour: 'blue', description: 'Desc 3' },
-  { id: 'game-4', title: 'Game 4: Improvement', principle: 'Improvement', accentColour: 'cyan', description: 'Desc 4' },
-  { id: 'game-5', title: 'Game 5: Delivery', principle: 'Delivery', accentColour: 'orange', description: 'Desc 5' },
+  { id: 'game-1', title: 'Game 1: Alignment', accentColour: 'pink', description: 'Desc 1', body: '' },
+  { id: 'game-2', title: 'Game 2: Persistence', accentColour: 'pink', description: 'Desc 2', body: 'In this game you manage a sprint.' },
+  { id: 'game-3', title: 'Game 3: Teamwork', accentColour: 'blue', description: 'Desc 3', body: '' },
+  { id: 'game-4', title: 'Game 4: Improvement', accentColour: 'cyan', description: 'Desc 4', body: '' },
+  { id: 'game-5', title: 'Game 5: Delivery', accentColour: 'orange', description: 'Desc 5', body: '' },
 ];
 
 jest.mock('../utils/content', () => ({
