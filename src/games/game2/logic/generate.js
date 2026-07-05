@@ -5,11 +5,11 @@ const STORIES = [
   },
   {
     title: 'Registration Form',
-    tasks: ['Design Form UI', 'Build Form Fields', 'Add Validation Logic', 'Connect to User API', 'Review & Merge'],
+    tasks: ['Design Form UI', 'Build Form Fields', 'Add Validation Logic', 'Connect to User API', 'Deploy to Production'],
   },
   {
     title: 'Dashboard',
-    tasks: ['Design Layout', 'Build Header & Nav', 'Build Data Widgets', 'Connect to Data API', 'Review & Merge'],
+    tasks: ['Design Layout', 'Build Header & Nav', 'Build Data Widgets', 'Connect to Data API', 'Ship to Production'],
   },
 ];
 

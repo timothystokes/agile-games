@@ -34,8 +34,8 @@ describe('hoursPerTick', () => {
     expect(hoursPerTick(0)).toBe(0);
   });
 
-  it('returns 1/0.9 for 1 active task (focus boost)', () => {
-    expect(hoursPerTick(1)).toBeCloseTo(1 / 0.9, 5);
+  it('returns 1/0.85 for 1 active task (focus boost, 15% faster)', () => {
+    expect(hoursPerTick(1)).toBeCloseTo(1 / 0.85, 5);
   });
 
   it('returns 1/1.10 for 2 active tasks (50% capacity + 10% penalty)', () => {
@@ -51,7 +51,7 @@ describe('advanceTick', () => {
   it('adds hoursPerTick(1) progress to a single in-progress task', () => {
     const stories = makeStory([makeTask({ status: 'inProgress' })]);
     const result = advanceTick(stories, 1);
-    expect(result[0].tasks[0].progressHours).toBeCloseTo(1 / 0.9, 5);
+    expect(result[0].tasks[0].progressHours).toBeCloseTo(1 / 0.85, 5);
   });
 
   it('does not advance todo or blocked tasks', () => {

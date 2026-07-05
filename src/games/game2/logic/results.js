@@ -2,7 +2,7 @@ const TIPS = {
   success: 'You finished everything — great focus! Finishing beats starting: a done story delivers value, a started one does not.',
   tdd: 'Bugs appeared because tests were written after code. Writing tests first catches defects at source and cuts rework.',
   disruption: 'Requirement changes hit hardest mid-task. Prioritise ruthlessly — finishing high-value work first limits the blast radius.',
-  wip: 'Stop starting, start finishing. Spreading work across many tasks at once slows everything down — WIP limits speed up throughput.',
+  wip: 'Stop starting, start finishing. Spreading effort across many tasks at once slows everything down — WIP limits speed up throughput.',
 };
 
 export function calculateResults(stories, elapsedHours) {
