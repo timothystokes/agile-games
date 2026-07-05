@@ -47,3 +47,62 @@ Chronological log of interactions between @timothystokes and GitHub Copilot CLI 
 > How does a game work at a high level?
 
 **Answer:** Format varies per Lab. Once the high-level solution is established, we will dive into one specific Lab in detail.
+
+**Q4 — Platform & Access**
+> Where do players access these games?
+
+**Answer:** A single-page static website. Hash-based URIs render each game (e.g. `#game-1`). Deep links are shareable. No backend.
+
+**Q5 — Progress & State**
+> Does progress need to persist between sessions?
+
+**Answer:** No — each game is a fresh self-contained session.
+
+**Q6 — Hosting & Deployment**
+> Where will this be hosted?
+
+**Answer:** GitHub Pages, deployed via GitHub Actions workflow, served from root path `/`.
+
+**Q7 — Tech Stack**
+> Frontend tech stack preference?
+
+**Answer:** Vite + React. Pure functions only — no complex classes. Vanilla JS.
+
+**Q8 — Visual Design**
+> Visual style?
+
+**Answer:** Dark mode throughout. Near-black background. White text. Rounded corners everywhere. Accent palette: bright pink, bright yellow, bright blue, bright cyan, bright orange. Status colours: bright green (positive outcome), bright red (negative outcome) — reserved for in-game feedback only. Cards/panels tinted to match border accent; nested cards use brighter tint to appear elevated. Google Fonts: Righteous (titles/headings), Gelasio (body/data). Animations on card movement.
+
+**Q9 — Non-Functionals: Performance**
+> Specific performance requirements?
+
+**Answer:** No hard requirements, but smooth animations on card movement are desired.
+
+**Q10 — Non-Functionals: Accessibility + Other NFRs**
+> Accessibility requirements and other non-functionals?
+
+**Answer:** WCAG Level A. TDD with Jest is non-negotiable. Spec-kit workflow is mandatory. Linting enforced. CI/CD on main branch.
+
+**Q11 — Browser Support**
+> Which browsers?
+
+**Answer:** Modern evergreen browsers only (Chrome, Firefox, Safari, Edge).
+
+**Q12 — Internationalisation**
+> Multiple languages?
+
+**Answer:** No — English only.
+
+**Q13 — Analytics**
+> Usage tracking or analytics?
+
+**Answer:** None.
+
+**Q14 — Licensing**
+> Open source / licence?
+
+**Answer:** None — private.
+
+**Actions:**
+- Wrote `.specify/memory/constitution.md` (v1.0.0) covering 6 principles: Test-First, Pure Functions, Spec-Driven, Simplicity, CI/Quality Gates, Accessibility; plus Technology Constraints, Design System, Workflow, and Governance sections.
+- Created `.specify/memory/spec.md` (SPEC-001) — high-level platform spec covering all 5 Labs, 4 user stories, FR-001–FR-012, NF-001–NF-010, SC-001–SC-005.

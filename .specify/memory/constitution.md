@@ -1,50 +1,58 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Agile Games Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Test-First (NON-NEGOTIABLE)
+TDD is mandatory on every feature. Tests MUST be written and reviewed before implementation begins. The Red-Green-Refactor cycle is strictly enforced. Jest is the test runner. No implementation code ships without a corresponding passing test.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Pure Functions Only
+All logic MUST be expressed as pure functions — no classes, no side-effect-laden objects. Shared helpers MUST be stateless. State and side effects are owned by the top-level component or entry point, never by shared utilities. Tiny single-use helpers MUST be scoped inside the function that uses them rather than exposed as top-level utilities.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Spec-Driven Development (NON-NEGOTIABLE)
+All features MUST originate from a spec-kit specification. The workflow order is: constitution → specify → plan → tasks → implement. No code is written without a corresponding task in the task list. The spec is the source of truth; implementation serves the spec, not the other way around.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Simplicity & Minimal Dependencies
+The solution MUST use the minimum number of dependencies to achieve the outcome. Vite + React + vanilla JS is the stack. No unnecessary abstractions. Route dispatch stays inline unless extraction adds genuine reuse. Single-use temporary values are inlined — no unnecessary local variables.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Continuous Integration & Quality Gates
+The `main` branch MUST always be deployable. Every push MUST pass linting and the full Jest test suite in CI before merging. GitHub Actions runs the CI pipeline. GitHub Pages deploys from `main` to the root path `/` on every passing build.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### VI. Accessibility
+All UI MUST meet WCAG Level A compliance. Keyboard navigation MUST be supported. Colour is never the sole indicator of state.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+## Technology Constraints
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+- **Frontend**: Vite + React, vanilla JS — no TypeScript, no class components
+- **Rendering**: Single-page application with hash-based routing (`/#game-1`, `/#game-2`, etc.)
+- **Backend**: None — fully client-side, no server, no database
+- **State**: No persistence between sessions; each game starts fresh
+- **Testing**: Jest (TDD, mandatory)
+- **Linting**: ESLint, enforced in CI
+- **Hosting**: GitHub Pages, root path `/`
+- **Deployment**: GitHub Actions on push to `main`
+- **Browsers**: Modern evergreen (Chrome, Firefox, Safari, Edge)
+- **Fonts**: Google Fonts — Righteous (titles/headings), Gelasio (body/data)
+- **Localisation**: English only
+- **Analytics**: None
+- **Licence**: None (private)
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Design System
+
+- **Mode**: Dark throughout
+- **Background**: Near-black canvas
+- **Text**: White
+- **Corners**: Rounded everywhere
+- **Accent palette**: Bright pink, bright yellow, bright blue, bright cyan, bright orange
+- **Status colours**: Bright green (positive outcome), bright red (negative outcome) — reserved for in-game feedback only
+- **Cards**: Each card/panel is tinted to match its border accent colour. Nested/embedded cards use a brighter tint to appear elevated above their container
+- **Animations**: Card movement and state transitions MUST use smooth CSS/JS animations
+
+## Development Workflow
+
+All development follows the spec-kit workflow. The agent-log (`agent-log.md`) records every interaction with a timestamp. A commit is made after every agent-log update. Commit messages MUST reference spec-kit artifact IDs (constitution, spec, plan, task IDs). Implementation decisions that deviate from the spec MUST be documented and the spec updated to match.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other practices and conventions. Amendments require: (1) a clear rationale, (2) updates to all dependent artifacts (spec, plan, tasks), and (3) a constitution version bump following semantic versioning. All code review MUST verify compliance with these principles. Complexity requires explicit justification. Refer to `README.md` as the runtime navigation guide.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-07-05 | **Last Amended**: 2026-07-05
