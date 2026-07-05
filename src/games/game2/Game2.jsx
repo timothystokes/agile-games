@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { fetchGameContent } from '../../utils/content';
 import { generateSprint } from './logic/generate';
+import { advanceTick } from './logic/wip';
 import IntroScreen from './components/IntroScreen';
 import CountdownOverlay from './components/CountdownOverlay';
 import SprintBoard from './components/SprintBoard';
@@ -46,11 +47,15 @@ export default function Game2() {
     }
   }, [phase, countdownValue]);
 
-  // Game tick
+  // Game tick — advance progress each second
   useEffect(() => {
     if (phase !== 'active') return;
     const interval = setInterval(() => {
-      setElapsedHours((h) => Math.min(h + 1, 80));
+      setElapsedHours((h) => {
+        const next = Math.min(h + 1, 80);
+        setStories((prev) => advanceTick(prev, next));
+        return next;
+      });
     }, 1000);
     return () => clearInterval(interval);
   }, [phase]);
@@ -59,6 +64,21 @@ export default function Game2() {
   useEffect(() => {
     if (phase === 'active' && elapsedHours >= 80) setPhase('results');
   }, [phase, elapsedHours]);
+
+  const handleTaskAction = useCallback((taskId, action) => {
+    setStories((prev) =>
+      prev.map((story) => ({
+        ...story,
+        tasks: story.tasks.map((task) => {
+          if (task.id !== taskId) return task;
+          if (action === 'start')  return { ...task, status: 'inProgress', startedAt: elapsedHours };
+          if (action === 'pause')  return { ...task, status: 'blocked' };
+          if (action === 'resume') return { ...task, status: 'inProgress' };
+          return task;
+        }),
+      }))
+    );
+  }, [elapsedHours]);
 
   const handleStart = () => {
     const sprint = generateSprint();
@@ -82,6 +102,7 @@ export default function Game2() {
         stories={stories}
         elapsedHours={elapsedHours}
         interactive={phase === 'active'}
+        onTaskAction={handleTaskAction}
       />
       {phase === 'countdown' && <CountdownOverlay value={countdownValue} />}
     </div>

@@ -1,3 +1,4 @@
+import TaskCard from './TaskCard';
 import styles from './StoryLane.module.css';
 
 const COLUMNS = ['todo', 'inProgress', 'blocked', 'done'];
@@ -24,14 +25,11 @@ export default function StoryLane({ story, onTaskAction, interactive = false }) 
             {tasks
               .filter((t) => t.status === col)
               .map((task) => (
-                <div
+                <TaskCard
                   key={task.id}
-                  className={`${styles.task} ${task.isBug ? styles.bug : ''} ${task.status === 'done' ? styles.done : ''}`}
-                >
-                  <span className={styles.taskName}>{task.name}</span>
-                  {task.changed && <span className={styles.changed}>CHANGED</span>}
-                  <span className={styles.hours}>{task.estimatedHours}h</span>
-                </div>
+                  task={task}
+                  onAction={interactive ? onTaskAction : () => {}}
+                />
               ))}
           </div>
         ))}

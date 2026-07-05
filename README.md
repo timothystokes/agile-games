@@ -1,5 +1,9 @@
 # Agile Games
 
+## Game 2: Persistance
+
+NOTE: Game 2 has been the focus of this 3 hour session. The other games are yet to be completed.
+
 **🚀 Live site: [https://timothystokes.github.io/agile-games/](https://timothystokes.github.io/agile-games/)**
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
