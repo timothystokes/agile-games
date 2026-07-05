@@ -15,7 +15,7 @@ export function parseGameFrontmatter(markdown) {
   return fields;
 }
 
-export async function fetchGameContent(id, baseUrl = '/') {
+export async function fetchGameContent(id, baseUrl = '/agile-games/') {
   try {
     const url = `${baseUrl}content/${id}.md`;
     const response = await fetch(url);
