@@ -20,7 +20,7 @@ describe('ResultsScreen', () => {
     expect(screen.getByText('$5,200')).toBeInTheDocument();
   });
 
-  it('renders potential value', () => {
+  it('renders potential value alongside delivered', () => {
     render(<ResultsScreen results={results} onPlayAgain={() => {}} />);
     expect(screen.getByText('$7,700')).toBeInTheDocument();
   });
@@ -30,9 +30,15 @@ describe('ResultsScreen', () => {
     expect(screen.getByText('$520')).toBeInTheDocument();
   });
 
+  it('renders potential throughput', () => {
+    render(<ResultsScreen results={results} onPlayAgain={() => {}} />);
+    expect(screen.getByText('$770')).toBeInTheDocument();
+  });
+
   it('renders stories completed count', () => {
     render(<ResultsScreen results={results} onPlayAgain={() => {}} />);
-    expect(screen.getByText('2 / 3')).toBeInTheDocument();
+    expect(screen.getByText('2')).toBeInTheDocument();
+    expect(screen.getByText('3')).toBeInTheDocument();
   });
 
   it('renders the learning tip', () => {

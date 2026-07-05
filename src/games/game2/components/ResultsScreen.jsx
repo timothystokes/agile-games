@@ -1,11 +1,12 @@
 import styles from './ResultsScreen.module.css';
 
 function fmt(n) {
-  return `$${n.toLocaleString('en-US')}`;
+  return `$${Math.round(n).toLocaleString('en-US')}`;
 }
 
 export default function ResultsScreen({ results, onPlayAgain }) {
   const { valueDelivered, potentialValue, throughput, cycleTime, storiesCompleted, storiesTotal, tip } = results;
+  const potentialThroughput = potentialValue / 10;
 
   return (
     <div className={styles.screen}>
@@ -14,23 +15,42 @@ export default function ResultsScreen({ results, onPlayAgain }) {
       <div className={styles.metrics}>
         <div className={styles.metric}>
           <span className={styles.label}>Value Delivered</span>
-          <span className={styles.value}>{fmt(valueDelivered)}</span>
+          <div className={styles.pair}>
+            <span className={styles.achieved}>{fmt(valueDelivered)}</span>
+            <span className={styles.separator}>/</span>
+            <span className={styles.potential}>{fmt(potentialValue)}</span>
+          </div>
+          <span className={styles.sublabel}>potential</span>
         </div>
-        <div className={styles.metric}>
-          <span className={styles.label}>Potential Value</span>
-          <span className={styles.value}>{fmt(potentialValue)}</span>
-        </div>
+
         <div className={styles.metric}>
           <span className={styles.label}>Throughput / Day</span>
-          <span className={styles.value}>{fmt(throughput)}</span>
+          <div className={styles.pair}>
+            <span className={styles.achieved}>{fmt(throughput)}</span>
+            <span className={styles.separator}>/</span>
+            <span className={styles.potential}>{fmt(potentialThroughput)}</span>
+          </div>
+          <span className={styles.sublabel}>potential</span>
         </div>
+
+        <div className={styles.metric}>
+          <span className={styles.label}>Stories Completed</span>
+          <div className={styles.pair}>
+            <span className={styles.achieved}>{storiesCompleted}</span>
+            <span className={styles.separator}>/</span>
+            <span className={styles.potential}>{storiesTotal}</span>
+          </div>
+          <span className={styles.sublabel}>total</span>
+        </div>
+
         <div className={styles.metric}>
           <span className={styles.label}>Avg Cycle Time</span>
-          <span className={styles.value}>{cycleTime !== null ? `${Math.round(cycleTime)}h` : '—'}</span>
-        </div>
-        <div className={styles.metric}>
-          <span className={styles.label}>Stories Finished</span>
-          <span className={styles.value}>{storiesCompleted} / {storiesTotal}</span>
+          <div className={styles.pair}>
+            <span className={styles.achieved}>{cycleTime !== null ? `${Math.round(cycleTime)}h` : '—'}</span>
+            <span className={styles.separator}>/</span>
+            <span className={styles.potential}>80h</span>
+          </div>
+          <span className={styles.sublabel}>sprint</span>
         </div>
       </div>
 
