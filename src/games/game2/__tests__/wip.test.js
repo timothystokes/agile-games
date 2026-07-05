@@ -38,12 +38,12 @@ describe('hoursPerTick', () => {
     expect(hoursPerTick(1)).toBeCloseTo(1 / 0.9, 5);
   });
 
-  it('returns 1/1.10 for 2 active tasks (10% penalty)', () => {
-    expect(hoursPerTick(2)).toBeCloseTo(1 / 1.10, 5);
+  it('returns 1/1.10 for 2 active tasks (50% capacity + 10% penalty)', () => {
+    expect(hoursPerTick(2)).toBeCloseTo((1 / 2) / 1.10, 5);
   });
 
-  it('returns 1/1.15 for 3 active tasks (15% penalty)', () => {
-    expect(hoursPerTick(3)).toBeCloseTo(1 / 1.15, 5);
+  it('returns 1/1.15 for 3 active tasks (33% capacity + 15% penalty)', () => {
+    expect(hoursPerTick(3)).toBeCloseTo((1 / 3) / 1.15, 5);
   });
 });
 
@@ -92,7 +92,7 @@ describe('advanceTick', () => {
       makeTask({ id: 't-1', status: 'inProgress' }),
     ]);
     const result = advanceTick(stories, 2);
-    expect(result[0].tasks[0].progressHours).toBeCloseTo(1 / 1.10, 5);
-    expect(result[0].tasks[1].progressHours).toBeCloseTo(1 / 1.10, 5);
+    expect(result[0].tasks[0].progressHours).toBeCloseTo((1 / 2) / 1.10, 5);
+    expect(result[0].tasks[1].progressHours).toBeCloseTo((1 / 2) / 1.10, 5);
   });
 });

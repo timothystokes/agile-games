@@ -85,16 +85,17 @@ The game reinforces three linked agile principles:
 - Timeline marker advances proportionally (1 segment = 8 real seconds = 8 simulated hours = 1 working day).
 
 ### WIP Speed Multiplier
-Progress rate per tick (1 tick = 1 real second = 1 simulated hour):
+Capacity is shared equally across all active tasks, then the context-switch penalty is applied on top:
 
-| Tasks In Progress (N) | Effect | Progress earned per tick per task |
-|---|---|---|
-| 0 | No active work | 0h |
-| 1 | Focus bonus | `hours / (estimatedHours × 0.9)` — completes in 90% of estimate |
-| 2 | Context switch penalty | Each task burns at `1 / (estimatedHours × 1.10)` — takes 10% longer |
-| 3+ | Compounding penalty | Each task burns at `1 / (estimatedHours × (1 + 0.05 × N))` — takes N×5% longer |
+| Tasks In Progress (N) | Rate per task per simulated hour |
+|---|---|
+| 0 | 0 |
+| 1 | `1 / 0.9` — focus bonus, completes in 90% of estimate |
+| 2 | `(1/2) / 1.10` — 50% capacity share + 10% penalty → each task takes ~2.2× longer than N=1 |
+| 3 | `(1/3) / 1.15` — 33% capacity share + 15% penalty → each task takes ~3.45× longer than N=1 |
+| N>1 | `(1/N) / (1 + 0.05×N)` — general formula |
 
-In summary: N=1 → ×0.9 effective duration; N>1 → ×(1 + 0.05×N) effective duration per task.
+In summary: capacity divides by N first, then a compounding penalty multiplies effective duration. Running two tasks simultaneously makes each take over twice as long.
 
 ### Disruption Events (Requirement Changes)
 Two disruption events fire during the sprint, each targeting one task in Stories 2 and 3.

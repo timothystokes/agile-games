@@ -8,7 +8,7 @@ export function countActiveTasks(stories) {
 export function hoursPerTick(n) {
   if (n === 0) return 0;
   if (n === 1) return 1 / 0.9;
-  return 1 / (1 + 0.05 * n);
+  return (1 / n) / (1 + 0.05 * n);
 }
 
 export function advanceTick(stories, elapsedHours, delta = 1) {
