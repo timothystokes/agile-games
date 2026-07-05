@@ -1,0 +1,121 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 3rem 2rem;
+  animation: fadeIn 400ms ease both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.heading {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  color: var(--color-pink);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.metrics {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  background: color-mix(in srgb, var(--color-pink) 10%, var(--color-bg));
+  border: 1px solid color-mix(in srgb, var(--color-pink) 40%, transparent);
+  border-radius: var(--radius);
+  padding: 1rem 1.5rem;
+  min-width: 140px;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  opacity: 0.55;
+  text-transform: uppercase;
+}
+
+.value {
+  font-family: var(--font-title);
+  font-size: 1.6rem;
+  color: var(--color-text);
+}
+
+.tipBox {
+  max-width: 560px;
+  width: 100%;
+  background: color-mix(in srgb, #f5c518 10%, var(--color-bg));
+  border: 1px solid color-mix(in srgb, #f5c518 50%, transparent);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tipLabel {
+  font-family: var(--font-title);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: #f5c518;
+  opacity: 0.8;
+}
+
+.tip {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin: 0;
+  color: var(--color-text);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.playAgain {
+  font-family: var(--font-title);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  padding: 0.6rem 1.6rem;
+  background: var(--color-pink);
+  color: var(--color-bg);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: opacity 150ms ease;
+}
+
+.playAgain:hover {
+  opacity: 0.85;
+}
+
+.backLink {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-text);
+  opacity: 0.55;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius);
+  padding: 0.5rem 1rem;
+  transition: opacity 150ms ease;
+}
+
+.backLink:hover {
+  opacity: 0.85;
+}

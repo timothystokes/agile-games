@@ -1,10 +1,14 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { fetchGameContent } from '../../utils/content';
 import { generateSprint } from './logic/generate';
 import { advanceTick } from './logic/wip';
+import { checkDisruptions } from './logic/disruption';
+import { checkTddCondition, createBugTask } from './logic/tdd';
+import { calculateResults, selectTip } from './logic/results';
 import IntroScreen from './components/IntroScreen';
 import CountdownOverlay from './components/CountdownOverlay';
 import SprintBoard from './components/SprintBoard';
+import ResultsScreen from './components/ResultsScreen';
 import styles from './Game2.module.css';
 
 function BoardHeader({ title, elapsedHours }) {
@@ -21,10 +25,15 @@ function BoardHeader({ title, elapsedHours }) {
 export default function Game2() {
   const [phase, setPhase] = useState('intro');
   const [game, setGame] = useState(null);
-  const [config, setConfig] = useState(null);
   const [stories, setStories] = useState([]);
   const [elapsedHours, setElapsedHours] = useState(0);
   const [countdownValue, setCountdownValue] = useState(5);
+  const [results, setResults] = useState(null);
+
+  // Engine refs — read/written inside setInterval to avoid stale closures
+  const storiesRef = useRef([]);
+  const elapsedRef = useRef(0);
+  const engineRef = useRef({ disruptionEvents: [], scheduledBugs: [], tddTriggered: new Set() });
 
   useEffect(() => {
     fetchGameContent('game-2').then(setGame);
@@ -47,44 +56,81 @@ export default function Game2() {
     }
   }, [phase, countdownValue]);
 
-  // Game tick — advance progress each second
+  // Game tick — advance progress + disruptions + TDD checks each second
   useEffect(() => {
     if (phase !== 'active') return;
     const interval = setInterval(() => {
-      setElapsedHours((h) => {
-        const next = Math.min(h + 1, 80);
-        setStories((prev) => advanceTick(prev, next));
-        return next;
-      });
-    }, 1000);
+      const next = Math.min(elapsedRef.current + 0.05, 80);
+      elapsedRef.current = next;
+      const engine = engineRef.current;
+
+      // 1. WIP progress
+      let updated = advanceTick(storiesRef.current, next, 0.05);
+
+      // 2. Disruption events
+      const { stories: afterDisruption, events } = checkDisruptions(updated, engine.disruptionEvents, next);
+      updated = afterDisruption;
+      engine.disruptionEvents = events;
+
+      // 3. TDD checks — schedule a bug if write tests was done last
+      for (const story of updated) {
+        if (!engine.tddTriggered.has(story.id) && checkTddCondition(story)) {
+          engine.tddTriggered.add(story.id);
+          const remaining = 80 - next;
+          const bug = createBugTask(story.id, remaining);
+          if (bug) {
+            const maxDelay = Math.max(1, remaining - bug.estimatedHours);
+            engine.scheduledBugs.push({
+              bug, storyId: story.id,
+              firesAt: next + Math.floor(Math.random() * maxDelay) + 1,
+            });
+          }
+        }
+      }
+
+      // 4. Apply any bugs whose scheduled time has arrived
+      for (const { bug, storyId } of engine.scheduledBugs.filter((s) => next >= s.firesAt)) {
+        updated = updated.map((story) =>
+          story.id === storyId ? { ...story, tasks: [...story.tasks, bug] } : story
+        );
+      }
+      engine.scheduledBugs = engine.scheduledBugs.filter((s) => next < s.firesAt);
+
+      storiesRef.current = updated;
+      setStories(updated);
+      setElapsedHours(next);
+      if (next >= 80) {
+        const r = calculateResults(updated, next);
+        setResults({ ...r, tip: selectTip(r) });
+        setPhase('results');
+      }
+    }, 50);
     return () => clearInterval(interval);
   }, [phase]);
 
-  // Sprint over
-  useEffect(() => {
-    if (phase === 'active' && elapsedHours >= 80) setPhase('results');
-  }, [phase, elapsedHours]);
-
-  const handleTaskAction = useCallback((taskId, action) => {
-    setStories((prev) =>
-      prev.map((story) => ({
-        ...story,
-        tasks: story.tasks.map((task) => {
-          if (task.id !== taskId) return task;
-          if (action === 'start')  return { ...task, status: 'inProgress', startedAt: elapsedHours };
-          if (action === 'pause')  return { ...task, status: 'blocked' };
-          if (action === 'resume') return { ...task, status: 'inProgress' };
-          return task;
-        }),
-      }))
-    );
-  }, [elapsedHours]);
+  const handleTaskAction = (taskId, action) => {
+    const updated = storiesRef.current.map((story) => ({
+      ...story,
+      tasks: story.tasks.map((task) => {
+        if (task.id !== taskId) return task;
+        if (action === 'start')  return { ...task, status: 'inProgress', startedAt: elapsedRef.current };
+        if (action === 'pause')  return { ...task, status: 'blocked' };
+        if (action === 'resume') return { ...task, status: 'inProgress' };
+        return task;
+      }),
+    }));
+    storiesRef.current = updated;
+    setStories(updated);
+  };
 
   const handleStart = () => {
     const sprint = generateSprint();
-    setConfig(sprint);
+    storiesRef.current = sprint.stories;
+    elapsedRef.current = 0;
+    engineRef.current = { disruptionEvents: sprint.disruptionEvents, scheduledBugs: [], tddTriggered: new Set() };
     setStories(sprint.stories);
     setElapsedHours(0);
+    setResults(null);
     setCountdownValue(5);
     setPhase('countdown');
   };
@@ -93,6 +139,10 @@ export default function Game2() {
 
   if (phase === 'intro') {
     return <IntroScreen game={game} onStart={handleStart} />;
+  }
+
+  if (phase === 'results') {
+    return <ResultsScreen results={results} onPlayAgain={handleStart} />;
   }
 
   return (

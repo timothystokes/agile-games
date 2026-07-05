@@ -4,6 +4,38 @@ Chronological log of interactions between @timothystokes and GitHub Copilot CLI 
 
 ---
 
+## 2026-07-05T17:18 AEST
+
+**Prompt:** Lower setInterval to 0.05s to smooth animation without re-architecting.
+
+**Actions:**
+- Changed game tick from `setInterval(..., 1000)` with `+1h` delta to `setInterval(..., 50)` with `+0.05h` delta.
+- Passed `delta = 0.05` to `advanceTick` — same total rate (1 simulated hour per real second), 20× smoother updates.
+- 107 tests passing.
+
+---
+
+## 2026-07-05T17:20 AEST
+
+**Prompt:** Tasks should not change vertical position; tasks should slide horizontally to new columns. Continue with remaining slices.
+
+**Actions (task layout fix):**
+- Replaced 4-column bucket layout in `StoryLane.jsx` with a row-per-task approach.
+- Each task occupies a fixed vertical row; `marginLeft: COLUMN_INDEX[status] * 25%` positions it in the correct column.
+- CSS `transition: margin-left 400ms ease` on `.taskSlider` provides smooth horizontal slide.
+- Column separator lines via `repeating-linear-gradient` on `.taskRows` background.
+
+**Actions (Slice E — Results screen, TASKS-002 T012–T014):**
+- TDD: wrote `results.test.js` (12 tests) before implementation.
+- `results.js`: `calculateResults(stories, elapsedHours)` → valueDelivered, potentialValue, throughput, cycleTime, storiesCompleted, storiesTotal, hasBugs, hasDisruptions. `selectTip(results)` → context-sensitive learning tip (success / tdd / disruption / wip).
+- TDD: wrote `ResultsScreen.test.jsx` (7 tests) before implementation.
+- `ResultsScreen.jsx` + `ResultsScreen.module.css`: metrics grid, yellow tip box, PLAY AGAIN button (pink), ← BACK TO HOME link. Fade-in animation.
+- Wired `disruption.js`, `tdd.js`, `results.js` fully into `Game2.jsx` game tick and phase transitions.
+- Play Again calls `handleStart` → resets all refs + state, generates new sprint, returns to countdown.
+- 126 tests passing.
+
+---
+
 ## 2026-07-05T14:54 AEST
 
 **Prompt:** Start a new solution. Point `.github/copilot-instructions.md` to README.md so high-level context is accessible and all in one place. Keep README.md up to date. Keep a log of interactions in `agent-log.md`. Document that we are using GitHub Copilot CLI with Claude Sonnet 4.6. Integrate `github/spec-kit` by following its Get Started guide. Then interview me about this solution following the spec-kit workflow.

@@ -11,9 +11,9 @@ export function hoursPerTick(n) {
   return 1 / (1 + 0.05 * n);
 }
 
-export function advanceTick(stories, elapsedHours) {
+export function advanceTick(stories, elapsedHours, delta = 1) {
   const n = countActiveTasks(stories);
-  const rate = hoursPerTick(n);
+  const rate = hoursPerTick(n) * delta;
 
   return stories.map((story) => {
     const updatedTasks = story.tasks.map((task) => {

@@ -2,7 +2,7 @@
 
 ## Game 2: Persistance
 
-NOTE: Game 2 has been the focus of this 3 hour session. The other games are yet to be completed.
+NOTE: The Agile Games framework and Game 2 has been the focus of this 3 hour session. The other games are yet to be completed.
 
 **🚀 Live site: [https://timothystokes.github.io/agile-games/](https://timothystokes.github.io/agile-games/)**
 
